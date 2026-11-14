@@ -3,8 +3,230 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Nueva Socratica</title>
-<style>html, body { margin: 0; height: 100%; background: #0047ff; }</style>
+<title>nuevasocratica.com</title>
+<meta name="description" content="the unexamined line is not worth standing in. check the live lunch line monitor.">
+<meta name="theme-color" content="#0047ff">
+<style>
+  :root {
+    --field: #0047ff;
+    --ink: #ffffff;
+    --ink-soft: rgba(255, 255, 255, 0.78);
+    --ink-faint: rgba(255, 255, 255, 0.5);
+    --frame-line: rgba(255, 255, 255, 0.32);
+    --figure: rgba(255, 255, 255, 0.92);
+    --unit: 8px;
+    --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace;
+    --sans: ui-sans-serif, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; }
+  body {
+    background: var(--field);
+    color: var(--ink);
+    font-family: var(--sans);
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+  }
+  main {
+    width: 100%;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: calc(var(--unit) * 3) calc(var(--unit) * 2) calc(var(--unit) * 4);
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--unit) * 4);
+  }
+  .masthead { font-size: 13px; letter-spacing: 0.08em; color: var(--ink-faint); }
+  .hero { margin-top: auto; display: flex; flex-direction: column; gap: calc(var(--unit) * 2); }
+  h1 {
+    margin: 0;
+    font-weight: 700;
+    font-size: clamp(40px, 9vw, 72px);
+    line-height: 0.98;
+    letter-spacing: -0.035em;
+  }
+  h1 .struck { position: relative; white-space: nowrap; color: var(--ink-faint); }
+  h1 .struck::after {
+    content: ""; position: absolute; left: -2%; right: -2%; top: 54%;
+    height: 0.08em; background: var(--ink); border-radius: 1px;
+    transform-origin: left; transform: scaleX(0);
+    animation: strike 500ms 700ms cubic-bezier(.6,0,.2,1) forwards;
+  }
+  @keyframes strike { to { transform: scaleX(1); } }
+  .attribution { font-family: var(--mono); font-size: 13px; color: var(--ink-faint); }
+  .lede { margin: 0; font-size: 18px; line-height: 1.5; color: var(--ink-soft); max-width: 46ch; }
+
+  .queue { width: 100%; height: auto; display: block; overflow: visible; }
+  .queue .floor { stroke: var(--frame-line); stroke-width: 1; }
+  .queue .person { transition: transform 900ms cubic-bezier(.45,0,.25,1), opacity 600ms ease; }
+  .queue .person .body { fill: var(--figure); }
+  .queue .person .bob { animation: bob 1.8s ease-in-out infinite; }
+  .queue .person.walking .bob { animation: hop 300ms ease-in-out 3; }
+  @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-1.5px); } }
+  @keyframes hop { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+  .queue .counter { fill: none; stroke: var(--ink); stroke-width: 1.5; }
+  .queue .counter-label { fill: var(--ink); font: 600 12px var(--mono); letter-spacing: 0.08em; }
+  .queue .steam { fill: none; stroke: var(--ink-soft); stroke-width: 1.5; stroke-linecap: round; animation: steam 2.4s ease-in-out infinite; }
+  .queue .steam:nth-of-type(2) { animation-delay: 0.8s; }
+  .queue .steam:nth-of-type(3) { animation-delay: 1.6s; }
+  @keyframes steam {
+    0% { opacity: 0; transform: translateY(4px); }
+    40% { opacity: 1; }
+    100% { opacity: 0; transform: translateY(-8px); }
+  }
+
+  .cta-row { display: flex; align-items: center; gap: calc(var(--unit) * 2); flex-wrap: wrap; }
+  .cta {
+    display: inline-flex; align-items: center; gap: var(--unit);
+    background: var(--ink); color: var(--field);
+    font: 600 15px var(--mono); text-decoration: none;
+    padding: 12px 18px; border-radius: 6px;
+    transition: transform 150ms ease, box-shadow 150ms ease;
+  }
+  .cta .arrow { display: inline-block; transition: transform 200ms ease; }
+  .cta:hover { box-shadow: 0 6px 0 -2px rgba(0, 0, 0, 0.18); transform: translateY(-2px); }
+  .cta:hover .arrow { transform: translateX(4px); }
+  .cta:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+
+  .status { display: flex; align-items: center; gap: var(--unit); font-family: var(--mono); font-size: 14px; color: var(--ink-soft); opacity: 0; transition: opacity 400ms ease; }
+  .status.shown { opacity: 1; }
+  .pulse { width: 8px; height: 8px; border-radius: 50%; background: var(--ink); animation: beat 1.6s ease-out infinite; }
+  @keyframes beat { 0% { opacity: 1; } 70% { opacity: 0.25; } 100% { opacity: 1; } }
+
+  .footnote { margin: auto 0 0; font-size: 13px; line-height: 1.5; color: var(--ink-faint); max-width: 52ch; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    h1 .struck::after { transform: scaleX(1); }
+  }
+</style>
 </head>
-<body></body>
+<body>
+<main>
+  <div class="masthead">nuevasocratica.com</div>
+
+  <section class="hero">
+    <h1>the unexamined <span class="struck">life</span> line is not worth standing in.</h1>
+    <div class="attribution">— socrates, probably, if he went to nueva</div>
+    <p class="lede">a camera by the cafeteria counts the lunch line in real time, so you can decide whether to sprint or stroll.</p>
+  </section>
+
+  <svg class="queue" id="queue" viewBox="0 0 720 120" role="img" aria-label="a little line of people shuffling toward lunch">
+    <line class="floor" x1="0" x2="720" y1="110" y2="110"/>
+    <g id="people"></g>
+    <g transform="translate(628 0)">
+      <path class="steam" d="M30 40 q-4 -6 0 -12 q4 -6 0 -12"/>
+      <path class="steam" d="M44 40 q-4 -6 0 -12 q4 -6 0 -12"/>
+      <path class="steam" d="M58 40 q-4 -6 0 -12 q4 -6 0 -12"/>
+      <rect class="counter" x="8" y="50" width="76" height="60" rx="4"/>
+      <text class="counter-label" x="46" y="85" text-anchor="middle">lunch</text>
+    </g>
+  </svg>
+
+  <div class="cta-row">
+    <a class="cta" href="/lunch-line-monitor">check the lunch line <span class="arrow">→</span></a>
+    <div class="status" id="status"><span class="pulse"></span><span id="status-text"></span></div>
+  </div>
+
+  <p class="footnote">made by the socratica club with one camera, and one raspberry pi.</p>
+</main>
+<script>
+  // a tiny queue that shuffles toward lunch. when the monitor is live, its length follows the real count.
+  const SVG_NS = "http://www.w3.org/2000/svg";
+  const peopleGroup = document.getElementById("people");
+  const FRONT_X = 600;   // where the person at the front of the line stands
+  const SPACING = 44;
+  const MAX_PEOPLE = 13;
+  const FLOOR_Y = 110;
+  let targetLength = 5;
+  let queue = [];        // svg <g> elements, front first
+
+  function makePerson() {
+    const scale = 0.85 + Math.random() * 0.3;
+    const person = document.createElementNS(SVG_NS, "g");
+    person.setAttribute("class", "person");
+    const bob = document.createElementNS(SVG_NS, "g");
+    bob.setAttribute("class", "bob");
+    bob.style.animationDelay = `${-Math.random() * 1.8}s`;
+    const shape = document.createElementNS(SVG_NS, "g");
+    shape.setAttribute("class", "body");
+    shape.setAttribute("transform", `translate(0 ${FLOOR_Y}) scale(${scale.toFixed(2)})`);
+    shape.innerHTML = `<circle cx="0" cy="-46" r="8"/><rect x="-9" y="-35" width="18" height="35" rx="8"/>`;
+    bob.append(shape);
+    person.append(bob);
+    return person;
+  }
+
+  function place(person, x, opacity = 1) {
+    person.style.transform = `translateX(${x}px)`;
+    person.style.opacity = opacity;
+  }
+
+  function layout() {
+    queue.forEach((person, index) => place(person, FRONT_X - index * SPACING));
+  }
+
+  function join() {
+    const person = makePerson();
+    place(person, FRONT_X - queue.length * SPACING - SPACING, 0);
+    peopleGroup.append(person);
+    queue.push(person);
+    person.getBoundingClientRect(); // commit the start position so the walk-in animates
+    layout();
+  }
+
+  function serveFront() {
+    const served = queue.shift();
+    if (!served) return;
+    served.classList.add("walking");
+    place(served, FRONT_X + 48, 0);
+    setTimeout(() => served.remove(), 1000);
+    queue.forEach((person) => {
+      person.classList.remove("walking");
+      void person.getBoundingClientRect();
+      person.classList.add("walking");
+    });
+    layout();
+  }
+
+  function tick() {
+    // usually someone gets served and someone joins; drift toward the target length
+    if (queue.length > targetLength) serveFront();
+    else if (queue.length < targetLength) join();
+    else { serveFront(); setTimeout(join, 450); }
+  }
+
+  for (let i = 0; i < targetLength; i++) join();
+  const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!reducedMotion) setInterval(tick, 2400);
+
+  // live teaser: read the last few readings from the monitor's csv (no camera frames, just numbers)
+  const status = document.getElementById("status");
+  const statusText = document.getElementById("status-text");
+  const STALE_AFTER_MILLISECONDS = 30000;
+
+  async function checkLine() {
+    try {
+      const response = await fetch("/lunch-line-monitor/history?hours=0.05", { cache: "no-store" });
+      if (!response.ok) throw new Error(response.status);
+      const rows = (await response.text()).trim().split("\n").slice(1).filter(Boolean);
+      const recent = rows.slice(-15).map((row) => row.split(","));
+      const last = recent[recent.length - 1];
+      if (!last || Date.now() - Number(last[1]) > STALE_AFTER_MILLISECONDS) throw new Error("stale");
+      const average = Math.round(recent.reduce((sum, row) => sum + Number(row[2]), 0) / recent.length);
+      statusText.textContent = average === 0 ? "live · the line is empty"
+        : `live · about ${average} ${average === 1 ? "person" : "people"} in line`;
+      status.classList.add("shown");
+      targetLength = Math.max(1, Math.min(MAX_PEOPLE, average));
+      if (reducedMotion) { while (queue.length > targetLength) serveFront(); while (queue.length < targetLength) join(); }
+    } catch {
+      status.classList.remove("shown");
+      targetLength = 5;
+    }
+  }
+  checkLine();
+  setInterval(checkLine, 20000);
+</script>
+</body>
 </html>
